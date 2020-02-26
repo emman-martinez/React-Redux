@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // ***** Actions de Redux ***** //
 import { crearNuevoProductoAction } from './../actions/productosAction';
 
 const NuevoProducto = () => {
 
+    // State del componente
+    const [ nombre, guardarNombre ] = useState('');
+    const [ precio, guardarPrecio ] = useState(0);
+
     // Utilizar useDispatch que crea una función 
     const dispach = useDispatch();
 
     // Manda a llamar el action "crearNuevoProductoAction" de productosAction
-    const agregarProducto = () => {
+    const agregarProducto = (producto) => {
         return (
-            dispach(crearNuevoProductoAction())
+            dispach(crearNuevoProductoAction(producto))
         );
     };
 
@@ -20,11 +24,17 @@ const NuevoProducto = () => {
         e.preventDefault();
 
         // Validar formulario
+        if(nombre.trim() === '' || precio <= 0) {
+            return;
+        }
 
         // Si no hay errores
 
         // Crear el nuevo producto
-        agregarProducto();
+        agregarProducto({
+            nombre,
+            precio
+        });
         
     };
 
@@ -44,6 +54,8 @@ const NuevoProducto = () => {
                                     className="form-control"
                                     placeholder="Nombre Producto..."
                                     name="nombre" 
+                                    value={nombre}
+                                    onChange={ (e) => guardarNombre(e.target.value) }
                                 />
                             </div>
                             <div className="form-group">
@@ -53,6 +65,8 @@ const NuevoProducto = () => {
                                     className="form-control"
                                     placeholder="Precio Producto..."
                                     name="precio" 
+                                    value={precio}
+                                    onChange={ (e) => guardarPrecio(Number(e.target.value)) }
                                 />
                             </div>
 
