@@ -1,6 +1,24 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { obtenerProductosAction } from './../actions/productosAction';
 
 const Productos = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect( () => {
+        // Consultar la API
+        const cargarProductos = () => {
+            return(
+                dispatch(obtenerProductosAction())
+            );
+        };
+        cargarProductos();
+        
+    }, []);
+
     return (
         <Fragment>
             <h2 className="text-center my-5">Listado de Productos</h2>
@@ -19,5 +37,5 @@ const Productos = () => {
         </Fragment>
     );
 }
- 
+
 export default Productos;

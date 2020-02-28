@@ -5,7 +5,7 @@ import { crearNuevoProductoAction } from './../actions/productosAction';
 
 import SpinCube from './../spinkit/SpinCube';
 
-const NuevoProducto = () => {
+const NuevoProducto = ({history}) => {
 
     // State del componente
     const [ nombre, guardarNombre ] = useState('');
@@ -42,6 +42,9 @@ const NuevoProducto = () => {
             nombre,
             precio
         });
+
+        // Redireccionar 
+        history.push('/');
         
     };
 
