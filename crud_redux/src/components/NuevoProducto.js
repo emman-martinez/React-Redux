@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 // ***** Actions de Redux ***** //
 import { crearNuevoProductoAction } from './../actions/productosAction';
 
+import SpinCube from './../spinkit/SpinCube';
+
 const NuevoProducto = () => {
 
     // State del componente
@@ -11,6 +13,11 @@ const NuevoProducto = () => {
 
     // Utilizar useDispatch que crea una función 
     const dispach = useDispatch();
+
+    // Acceder al State del Store
+    const cargando = useSelector( (state) => state.productos.loading );
+    console.log(cargando);
+    const error = useSelector( (state) => state.productos.error );
 
     // Manda a llamar el action "crearNuevoProductoAction" de productosAction
     const agregarProducto = (producto) => {
@@ -77,6 +84,10 @@ const NuevoProducto = () => {
                                 Agregar
                             </button>
                         </form>
+
+                        { cargando ? <SpinCube/> : null }
+                        { error ? <p className="alert alert-danger p2 mt-4 text-center">Hubo un Error</p> : null }
+                    
                     </div>
                 </div>
             </div>

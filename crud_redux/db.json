@@ -6,7 +6,7 @@
       "precio": "31111"
     },
     {
-      "id": 2, 
+      "id": 2,
       "nombre": "Jugo de Naranja",
       "precio": "1"
     },
@@ -24,6 +24,21 @@
       "nombre": "Jugo de Fresa",
       "precio": "200",
       "id": 5
+    },
+    {
+      "nombre": "Arrachera",
+      "precio": 250,
+      "id": 6
+    },
+    {
+      "nombre": "Sirlon",
+      "precio": 250,
+      "id": 7
+    },
+    {
+      "nombre": "Rib Eye",
+      "precio": 400,
+      "id": 8
     }
   ]
 }
