@@ -18,7 +18,7 @@ export function crearNuevoProductoAction(producto) {
         console.log(producto);
         dispatch(agregarProducto());
 
-        try {
+        try { 
 
             // Insertar en la API
             await clienteAxios.post('/productos', producto); 
@@ -66,6 +66,16 @@ const agregarProductoError = (estado) => ({
 export function obtenerProductosAction() {
     return async (dispatch) => {
         dispatch(descargaProductos());
+        
+        try {
+            const respuesta = await clienteAxios.get('/productos');
+            // console.log(respuesta.data);
+            dispatch(descargaProductosExitosa(respuesta.data));
+        } catch (error) {
+            console.log(error);
+            dispatch(descargaProductosError());
+        }
+
     }
 }
 
@@ -73,3 +83,13 @@ const descargaProductos = () => ({
     type: COMENZAR_DESCARGA_PRODUCTOS,
     payload: true
 });
+
+const descargaProductosExitosa = (productos) => ({
+    type: DESCARGA_PRODUCTOS_EXITO,
+    payload: productos
+});
+
+const descargaProductosError = () => ({
+    type: DESCARGA_PRODUCTOS_ERROR,
+    payload: true
+})
