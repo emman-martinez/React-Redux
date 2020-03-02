@@ -25,10 +25,10 @@ const Productos = () => {
     // Obtener el State
     const productos = useSelector( state => state.productos.productos);
    // console.log(productos);
-   const error = useSelector( state => state.productos.error );
+    const error = useSelector( state => state.productos.error );
    // console.log(error);
-   const cargando = useSelector( state => state.productos.loading );
-   console.log(cargando);
+    const cargando = useSelector( state => state.productos.loading );
+    console.log(cargando);
 
     return (
         <Fragment>

@@ -4,13 +4,16 @@ import {
     AGREGAR_PRODUCTO_ERROR,
     COMENZAR_DESCARGA_PRODUCTOS,
     DESCARGA_PRODUCTOS_EXITO,
-    DESCARGA_PRODUCTOS_ERROR
+    DESCARGA_PRODUCTOS_ERROR,
+    OBTENER_PRODUCTO_ELIMINAR,
+    PRODUCTO_ELIMINADO_EXITO,
+    PRODUCTO_ELIMINADO_ERROR
 } from './../types';
 
 import clienteAxios from './../config/axios';
 import Swal from 'sweetalert2';
 
-// ***** Crear nuevos productos ***** //
+// ***** Crear Nuevos Productos ***** //
 export function crearNuevoProductoAction(producto) {
     return async (dispatch) => {
 
@@ -54,15 +57,15 @@ const agregarProducto = () => ({
 const agregarProductoExito = (producto) => ({
     type: AGREGAR_PRODUCTO_EXITO,
     payload: producto
-})
+});
 
 // Si hubo un error
 const agregarProductoError = (estado) => ({
     type: AGREGAR_PRODUCTO_ERROR,
     payload: estado
-})
+});
 
-// ***** Leer productos ***** //
+// ***** Leer Productos ***** //
 export function obtenerProductosAction() {
     return async (dispatch) => {
         dispatch(descargaProductos());
@@ -92,4 +95,40 @@ const descargaProductosExitosa = (productos) => ({
 const descargaProductosError = () => ({
     type: DESCARGA_PRODUCTOS_ERROR,
     payload: true
-})
+});
+
+// ***** Eliminar Productos ***** //
+export function borrarProductoAction(id) {
+    return async (dispatch) => {
+        dispatch(obtenerProductoEliminar(id));
+        console.log(id);
+        try {
+            const resultado = await clienteAxios.delete(`/productos/${id}`);
+            console.log(resultado);
+            dispatch(eliminarProductoExito());
+            // Si se elimina, mostrar alerta
+            Swal.fire(
+                'Eliminado!',
+                'Tu producto ha sido eliminado.',
+                'success'
+            )
+        } catch(error) {
+            console.log(error);
+            dispatch(eliminarProductoError());
+        }
+    }
+}
+
+const obtenerProductoEliminar = (id) => ({
+    type: OBTENER_PRODUCTO_ELIMINAR,
+    payload: id
+});
+
+const eliminarProductoExito = () => ({
+    type: PRODUCTO_ELIMINADO_EXITO
+});
+
+const eliminarProductoError = () => ({
+    type: PRODUCTO_ELIMINADO_ERROR,
+    payload: true
+});
