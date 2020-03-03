@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux'; // Redux
 import { borrarProductoAction, obtenerProductoEditar } from './../actions/productosAction';
 
-const Producto = (props) => {
+const Producto = (props) => { 
 
     const { producto } = props;
     const { nombre, precio, id } = producto;
